@@ -26,10 +26,10 @@ services:
       PASSWORD: ${POSTGRES_DB_PASSWORD}
     volumes:
       - odoo-data:/var/lib/odoo
-      - odoo-addons:/mnt/extra-addons
+      - /home/azureuser/odoo/custom-addons:/mnt/extra-addons
     networks:
       - odoo-internal
-  
+
   pgadmin:
     image: dpage/pgadmin4
     container_name: odoo-pgadmin
