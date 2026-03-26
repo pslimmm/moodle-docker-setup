@@ -2,7 +2,15 @@
 Setting up prebuilt odoo app on Azure VM using docker
 
 Steps:
-
+0. change this line on the docker-compose.yml file into your respective folder names
+```
+  odoo:
+    ...
+    volumes:
+      - odoo-data:/var/lib/odoo
+      - <CHANGE TO THE LOCATION OF THE FOLDER>/custom-addons:/mnt/extra-addons
+    ...
+```
 1. SSH into the Azure VM
 ```bash
 ssh -i <private-key-file-path> <vm-user>@<vm-ip>
