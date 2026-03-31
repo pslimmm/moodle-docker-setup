@@ -56,6 +56,17 @@ docker compose config
 docker compose up --build -d
 ```
 
-7. once everything is set up, access the odoo page through your-vm-ip/web/database/manager
+7. Set up SSL. The easiest way is to run Certbot on the host machine (the Azure VM).
+```bash   
+# Install Certbot:
+sudo apt update && sudo apt install certbot
+
+# Stop your Nginx container temporarily (to free up port 80 for validation):
+docker compose stop nginx-proxy
+
+# Run Certbot:
+sudo certbot certonly --standalone -d yourdomain.com
+```
+8. once everything is set up, access the odoo page through your-vm-ip/web/database/manager
     - restore a database backup you have installed (zip file)
     - set the master password
