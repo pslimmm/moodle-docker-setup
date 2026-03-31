@@ -33,6 +33,17 @@ services:
       # - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       # - MYSQL_DATABASE=${MYSQL_DATABASE}
 
+  moodle-cron:
+    image: alpine:latest
+    container_name: moodle-cron
+    depends_on:
+      - moodleapp
+    volumes:
+      - ./moodledata:/var/www/moodledata
+    # This installs the docker CLI inside alpine to talk to the other container
+    entrypoint: |
+      bin/sh -c "echo '* * * * * docker exec -u www-data moodleapp php /var/www/html/admin/cli/cron.php' > /etc/cron.d/moodle-cron && crond -f"
+
   nginx-proxy:
     image: nginx:alpine
     container_name: moodle-nginx
